@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+    <head>
+        <title>Sample DYMO Label Plug-In</title>
+
+
+            <script src="DYMO.Label.Framework.latest.js" type="text/javascript" charset="UTF-8"></script> 
+            <script>
+            function GetDYMOPrinters()
+            {   
+
+                //var printers = dymo.label.framework.getPrinters();
+                let printers = dymo.label.framework.getPrinters();
+                console.log(printers);
+                if (printers.length == 0)
+                throw "No DYMO printers are installed. Install DYMO printers.";
+                var printerName = "";
+                for (var i = 0; i < printers.length; ++i)
+                {
+                    var printer = printers[i];
+                    if (printer.printerType == "LabelWriterPrinter")
+                    {
+                        printerName = printer.name;
+                        break;
+                    }
+                }
+
+
+            var label = dymo.label.framework.openLabelFile("C:\\Users\\18623\\Documents\\Projects\\Core\\Dymo\\vsn_asset_tag.label");
+            //console.log(label);
+            var object_names =  label.getObjectNames();
+            console.log(object_names);
+          /**  
+            let k=0;
+            for (k=0; k < object_names.length;k++)
+            {
+                console.log("[Object Name : "+object_names[k]+"][Obect data : "+label.getObjectText(object_names[k])+"]");
+                label.setObjectText(object_names[k],"I Love Alexsis");
+                console.log("[Object Name : "+object_names[k]+"][Obect data : "+label.getObjectText(object_names[k])+"]");
+
+            }
+              // label.print(printerName);
+            }*/
+
+
+            /*
+                0: "property_of"
+                1: "receipt_allocation"
+                2: "model_number"
+                3: "serial_number"
+                4: "BARCODE
+            */
+
+            // Change Object Names
+                // change property of
+                label.setObjectText("property_of","Floys Barber Shop");
+
+                  // change receipt allocation
+                label.setObjectText("receipt_allocation","Flodys MWS");
+
+                  // change model number
+                label.setObjectText("model_number","FS-108D-POE");
+
+                  // change serial number
+                label.setObjectText("serial_number","FS10D7474774932");
+
+                label.print(printerName);
+
+        }
+     </script>
+
+    </head>
+    <body>
+         <form action="" method="post" id="DYMOLabel">
+        <center>
+        <h2>DYMO Label  Example</h2>
+         <input type=button value="Get DYMO Printers" onClick="GetDYMOPrinters()">
+     </center>
+
+     <Element></Element>
+    </form>
+
+
+
+    </body>
+</html>
